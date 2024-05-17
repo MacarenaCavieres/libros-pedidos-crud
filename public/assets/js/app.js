@@ -1,4 +1,5 @@
 const list = document.querySelector("#list");
+const listOrders = document.querySelector("#listOrders");
 const form = document.querySelector("#form");
 
 const myModal = new bootstrap.Modal(document.getElementById("modal"));
@@ -20,6 +21,7 @@ const printBooks = (data) => {
         const btnEditar = document.createElement("button");
         const btnEliminar = document.createElement("button");
         const btnComprar = document.createElement("button");
+        const formCantidad = document.createElement("form");
         const inpCantidad = document.createElement("input");
         const label = document.createElement("label");
         const divBtnes = document.createElement("div");
@@ -41,6 +43,11 @@ const printBooks = (data) => {
         divBtnes.appendChild(btnEditar);
         divBtnes.appendChild(btnEliminar);
 
+        formCantidad.dataset.id = item.id;
+        formCantidad.addEventListener("submit", (e) => {
+            e.preventDefault();
+            doTransaction(e.target.cantidad.value, e.target.dataset.id);
+        });
         label.textContent = `Si desea comprar "${item.nombre}", ingrese la cantidad`;
         label.classList.add("form-label");
         label.setAttribute("for", "cantidad");
@@ -50,11 +57,14 @@ const printBooks = (data) => {
         inpCantidad.classList.add("form-control", "w-25");
         btnComprar.textContent = "Comprar";
         btnComprar.classList.add("btn", "btn-info", "btn-comprar", "text-white", "mt-2");
-        btnComprar.setAttribute("type", "button");
+        btnComprar.setAttribute("type", "submit");
+        // btnComprar.dataset.id = item.id;
 
-        divInput.appendChild(label);
-        divInput.appendChild(inpCantidad);
-        divInput.appendChild(btnComprar);
+        formCantidad.appendChild(label);
+        formCantidad.appendChild(inpCantidad);
+        formCantidad.appendChild(btnComprar);
+
+        divInput.appendChild(formCantidad);
 
         li.appendChild(divBtnes);
         li.appendChild(divInput);
@@ -157,3 +167,41 @@ const updateBook = async (id) => {
 };
 
 getAllBooks();
+
+// ---------------------- pedidos------------------------------------------
+
+const getAllOrders = async () => {
+    try {
+        const { data } = await axios.get("/api/v1/pedidos");
+
+        printOrders(data);
+    } catch (error) {
+        console.error("Error front ===> ", error);
+    }
+};
+
+const printOrders = (data) => {
+    listOrders.textContent = "";
+    data.forEach((item) => {
+        const li = document.createElement("li");
+
+        li.classList.add("list-group-item");
+        li.textContent = `Cantidad: ${item.cantidad} - Libro_id: ${item.libro_id}`;
+
+        listOrders.appendChild(li);
+    });
+};
+
+const doTransaction = async (cantidad, id) => {
+    try {
+        await axios.post("/api/v1/pedidos", {
+            cantidad,
+            libro_id: id,
+        });
+        getAllOrders();
+    } catch (error) {
+        console.error("Error front ===> ", error);
+    }
+};
+
+getAllOrders();

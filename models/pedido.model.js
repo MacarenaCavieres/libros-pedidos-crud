@@ -28,6 +28,12 @@ const postOne = async (cantidad, libro_id) => {
     }
 };
 
+const getAll = async () => {
+    const { rows } = await pool.query("select * from pedidos");
+    return rows;
+};
+
 export const Order = {
     postOne,
+    getAll,
 };

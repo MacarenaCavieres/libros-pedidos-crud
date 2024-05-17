@@ -17,13 +17,13 @@
             <section class="container d-flex justify-content-center mt-4">
                 <form id="form" class="w-50 p-5 border rounded">
                     <label class="form-label" for="nombre">Ingrese libro</label>
-                    <input class="form-control" type="text" name="nombre" placeholder="libro" />
+                    <input class="form-control" type="text" name="nombre" placeholder="libro" required />
                     <label class="form-label mt-2" for="autor">Ingrese autor</label>
-                    <input class="form-control" type="text" name="autor" placeholder="autor" />
+                    <input class="form-control" type="text" name="autor" placeholder="autor" required />
                     <label class="form-label mt-2" for="precio">Ingrese precio</label>
-                    <input class="form-control" type="number" name="precio" placeholder="precio" />
+                    <input class="form-control" type="number" name="precio" placeholder="precio" required />
                     <label class="form-label mt-2" for="stock">Ingrese stock</label>
-                    <input class="form-control" type="number" name="stock" placeholder="stock" />
+                    <input class="form-control" type="number" name="stock" placeholder="stock" required />
                     <button type="submit" class="btn btn-primary text-white mt-2">Agregar</button>
                 </form>
             </section>
@@ -48,6 +48,10 @@
                     </li>
                 </ul>
             </section>
+            <h2 class="text-center mt-5">Lista pedidos</h2>
+            <section class="container mt-4 d-flex justify-content-center">
+                <ul class="list-group w-75 mb-5" id="listOrders"></ul>
+            </section>
         </main>
 
         <div
@@ -71,13 +75,37 @@
                     <div class="modal-body">
                         <form id="formEdit" class="p-2">
                             <label class="form-label" for="nombre">Ingrese libro</label>
-                            <input class="form-control" type="text" name="nombre" placeholder="libro" />
+                            <input
+                                class="form-control"
+                                type="text"
+                                name="nombre"
+                                placeholder="libro"
+                                required
+                            />
                             <label class="form-label mt-2" for="autor">Ingrese autor</label>
-                            <input class="form-control" type="text" name="autor" placeholder="autor" />
+                            <input
+                                class="form-control"
+                                type="text"
+                                name="autor"
+                                placeholder="autor"
+                                required
+                            />
                             <label class="form-label mt-2" for="precio">Ingrese precio</label>
-                            <input class="form-control" type="number" name="precio" placeholder="precio" />
+                            <input
+                                class="form-control"
+                                type="number"
+                                name="precio"
+                                placeholder="precio"
+                                required
+                            />
                             <label class="form-label mt-2" for="stock">Ingrese stock</label>
-                            <input class="form-control" type="number" name="stock" placeholder="stock" />
+                            <input
+                                class="form-control"
+                                type="number"
+                                name="stock"
+                                placeholder="stock"
+                                required
+                            />
                             <button type="submit" class="btn btn-warning mt-2">Editar</button>
                         </form>
                     </div>
